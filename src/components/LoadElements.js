@@ -1,20 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { IfcViewerAPI } from "web-ifc-viewer";
-import { Button, Box, Typography, Divider } from "@mui/material";
+import { Box, Typography, Divider } from "@mui/material";
 import { Color } from "three";
 
 import IfcTreeItem from "./IfctreeItem";
 
-import OpenModal from "../components/OpenModal";
-
-const LoadElements = ({ type }) => {
+const LoadElements = ({ type, treeData, sectionData, setSectionData }) => {
 	const viewerRef = useRef();
-	const [sectionData, setSectionData] = useState();
-	const [treeData, setTreeData] = useState(null);
-	const fileInputRef = useRef(null);
-	const [modalOpen, setModalOpen] = useState(false);
 
-	useEffect(() => {
+	const initializeViewer = useCallback(async () => {
 		const canvasContainer = document.getElementById("viewer-container");
 
 		const viewer = new IfcViewerAPI({
@@ -47,7 +41,6 @@ const LoadElements = ({ type }) => {
 						found.modelID,
 						found.id
 					);
-					setModalOpen(true);
 
 					console.log(result);
 					console.log(result1);
@@ -67,35 +60,12 @@ const LoadElements = ({ type }) => {
 				}
 			};
 		};
-	}, []);
+	}, [setSectionData]);
 
-	//---------------------------------------------------------------------------------------------
-	//HANDLERS - CARGA DEL MODELO - CARGA DE SPACIALSTRUCTURE
-	//---------------------------------------------------------------------------------------------
+	useEffect(() => {
+		initializeViewer();
+	}, [initializeViewer]);
 
-	const handleFileChange = async (event) => {
-		const selectedFile = event.target.files[0];
-		if (selectedFile) {
-			// Realiza la carga del archivo
-			try {
-				const model = await viewerRef.current.IFC.loadIfc(selectedFile, true);
-				console.log("Model loaded:", model);
-				console.log("Model name:", selectedFile.name);
-
-				// Obtener la estructura espacial
-				const spatialStructure =
-					await viewerRef.current.IFC.getSpatialStructure(model.modelID);
-				setTreeData(spatialStructure);
-				// console.log(spatialStructure);
-			} catch (error) {
-				console.log("Error loading model:", error);
-			}
-		}
-	};
-
-	const handleFileUpload = () => {
-		fileInputRef.current.click();
-	};
 	//-----------------------------------------------------------------------------------------------
 	//JSX
 	//-----------------------------------------------------------------------------------------------
@@ -103,7 +73,6 @@ const LoadElements = ({ type }) => {
 		<Box>
 			{type === "Tree" ? (
 				<>
-					<Typography sx={{ fontSize: 18 }}>SPACIAL TREE</Typography>
 					<div
 						style={{
 							height: "500px",
@@ -151,11 +120,6 @@ const LoadElements = ({ type }) => {
 			) : (
 				""
 			)}
-			<OpenModal
-				isOpen={modalOpen}
-				handleClose={() => setModalOpen(false)}
-				sectionData={sectionData}
-			/>
 		</Box>
 	);
 };

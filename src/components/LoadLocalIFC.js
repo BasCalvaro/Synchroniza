@@ -28,6 +28,7 @@ export default function LoadLocalIFC({ viewerRef, sectionData }) {
 	return (
 		<>
 			<Drawer viewerRef={viewerRef}/>
+			
 			<IconButton onClick={handleDimensionClick}>
 				<StraightenIcon />
 			</IconButton>

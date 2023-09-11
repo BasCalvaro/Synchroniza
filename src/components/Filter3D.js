@@ -11,9 +11,6 @@ import {
 } from "web-ifc";
 
 const Filter3D = ({ filters, onFilterChange, viewer }) => {
-
-	
-  
 	useEffect(() => {
 		setupAllCategories();
 	});
