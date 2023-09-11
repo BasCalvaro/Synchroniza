@@ -7,13 +7,14 @@ import OpenModal from "../components/OpenModal";
 
 const LoadLocalIFC = () => {
 	const viewerRef = useRef();
+	const fileInputRef = useRef(null);
 	const [sectionData, setSectionData] = useState();
 	const [treeData, setTreeData] = useState(null);
-	const fileInputRef = useRef(null);
-	const [model, setModel] = useState();
+	const [model, setModel] = useState(null);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [allPlans, setAllPlans] = useState([]);
 	const [selectedLevel, setSelectedLevel] = useState(null);
+	const [clippingPlane, setClippingPlane ] = useState(false)
 
 	useEffect(async () => {
 		const canvasContainer = document.getElementById("viewer-container");
@@ -22,10 +23,8 @@ const LoadLocalIFC = () => {
 			container: canvasContainer,
 			backgroundColor: new Color(0xffffff),
 
-			
 		});
-		
-		
+				
 		viewer.axes.setAxes();
 		viewer.grid.setGrid();
 		//-------------------------------------------------------------------------------------------
@@ -63,6 +62,7 @@ const LoadLocalIFC = () => {
 
 					console.log(result);
 					console.log(result1);
+			
 
 					if (result && result.Name && result.ObjectType && result.Tag) {
 						setSectionData({
@@ -78,6 +78,52 @@ const LoadLocalIFC = () => {
 		};
 	}, []);
 
+	//--------------------------------------------------------------------------
+	//CLIPPING PLANE
+	//--------------------------------------------------------------------------
+
+	
+
+		
+	
+
+		const createClippingPlane = () => {
+			const viewer = viewerRef.current;
+			viewer.clipper.createPlane();
+			setClippingPlane(false);
+		};
+	
+		const deleteClippingPlane = () => {
+			const viewer = viewerRef.current;
+			viewer.clipper.createPlane();
+			setClippingPlane(false);
+		};
+
+		
+		// const toggleClipping = () => {
+		// 	IfcViewerAPI.clipper.toggle();
+		// 	setClippingPlane((prev) => !prev);
+		// };
+
+
+		// const toggleClippingPlanes = () => {
+		// 	const viewer = viewerRef.current;
+		// 	if (viewer) {
+		// 	  viewer.clipper.createPlane();
+		// 	  if (viewer.clipper.active) {
+		// 		setClippingPlane(true);
+		// 	  } else {
+		// 		setClippingPlane(false);
+		// 	  }
+		// 	}
+		//   };
+	
+
+
+
+
+
+
 	//-------------------------------------------------------------------------
 	// FLOOR PLANTS
 	//-------------------------------------------------------------------------
@@ -86,7 +132,8 @@ const LoadLocalIFC = () => {
 		
         const viewer = viewerRef.current;
         const modelID = model.modelID;
-    
+		
+		
         const viewerPlans= await viewer.plans.computeAllPlanViews(modelID);
         console.log("vista de planos ",viewerPlans)
     
@@ -129,6 +176,7 @@ const LoadLocalIFC = () => {
 			// Realiza la carga del archivo
 			try {
 				const model = await viewerRef.current.IFC.loadIfc(selectedFile, true);
+				setModel(model);
 				console.log("Model loaded:", model);
 				console.log("Model name:", selectedFile.name);
 
@@ -165,6 +213,29 @@ const LoadLocalIFC = () => {
 
 		<Box>
 			
+			<Box>
+				
+			{ !clippingPlane ?
+                <Button onClick={createClippingPlane} variant="contained">
+                    Create Clipping Plane
+                </Button> :
+                <Button onClick={deleteClippingPlane} variant="contained">
+                    Delete Clipping Plane
+                </Button>
+            } 
+
+        
+                {/* <Button onClick={toggleClippingPlanes} variant="contained">
+                    Toggle Clipping
+                </Button> */}
+         
+
+				
+
+
+			</Box>
+
+
 
 			<Box>
         		<Button 
