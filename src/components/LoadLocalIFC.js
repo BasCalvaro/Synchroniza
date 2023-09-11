@@ -8,7 +8,7 @@ export default function LoadLocalIFC({viewerRef}) {
 	const [isDimensionActive, setDimensionActive] = useState(false);
 
 	//---------------------------------------------------------------------------------------------
-	//HANDLERS - CARGA DEL MODELO - CARGA DE SPACIALSTRUCTURE
+	//HANDLERS - OBTENER DIMENSIONES 
 	//---------------------------------------------------------------------------------------------
 
 	const handleDimensionClick = () => {
