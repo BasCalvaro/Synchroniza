@@ -101,18 +101,56 @@ const LoadElements = ({ type }) => {
 	//-----------------------------------------------------------------------------------------------
 	return (
 		<Box>
-			<Button onClick={handleFileUpload} variant="contained">
-				Load File
-			</Button>
-			<input
-				type="file"
-				id="file-input"
-				style={{ display: "none" }}
-				ref={fileInputRef}
-				onChange={handleFileChange}
-				accept=".ifc, .ifcXML, .ifcZIP,*.*"
-			/>
-
+			{type === "Tree" ? (
+				<>
+					<Typography sx={{ fontSize: 18 }}>SPACIAL TREE</Typography>
+					<div
+						style={{
+							height: "500px",
+							width: "250px",
+							overflowY: "scroll",
+							marginLeft: "10px",
+						}}
+					>
+						{treeData && (
+							<IfcTreeItem
+								node={treeData}
+								sx={{ fontSize: 15, marginRight: 10 }}
+							/>
+						)}
+					</div>
+				</>
+			) : type === "Properties" ? (
+				<>
+					{sectionData && (
+						<div>
+							<Typography
+								sx={{ fontSize: 14, color: "blue", fontStyle: "italic" }}
+							>
+								Name: {sectionData.name}
+							</Typography>
+							<Divider />
+							<Typography sx={{ fontSize: 14 }}>
+								IFC Category: {sectionData.IfcCategory}
+							</Typography>
+							<Divider />
+							<Typography sx={{ fontSize: 14 }}>
+								ExpressId: {sectionData.ExpressID}
+							</Typography>
+							<Divider />
+							<Typography sx={{ fontSize: 14 }}>
+								ObjectType: {sectionData.ObjectType}
+							</Typography>
+							<Divider />
+							<Typography sx={{ fontSize: 14 }}>
+								Tag: {sectionData.Tag}
+							</Typography>
+						</div>
+					)}
+				</>
+			) : (
+				""
+			)}
 			<OpenModal
 				isOpen={modalOpen}
 				handleClose={() => setModalOpen(false)}

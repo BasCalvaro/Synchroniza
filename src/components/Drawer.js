@@ -22,6 +22,7 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 
 import LoadButton from "./LoadButton";
+import LoadElements from "./LoadElements";
 
 import Filter3D from "../components/Filter3D";
 
@@ -112,7 +113,12 @@ const Drawer = styled(MuiDrawer, {
 	}),
 }));
 
-export default function MiniDrawer(viewerRef) {
+export default function MiniDrawer(
+	viewerRef,
+	sectionData,
+	treeData,
+	setTreeData
+) {
 	const [subsets, setSubsets] = useState({});
 	const [filters, setFilters] = useState({
 		IFCWALLSTANDARDCASE: true,
@@ -184,14 +190,43 @@ export default function MiniDrawer(viewerRef) {
 					</IconButton>
 				</DrawerHeader>
 				<Divider />
-				{viewerRef.current && (
+				<List>
+					{["Element Tree", "Properties"].map((text, index) => (
+						<ListItem key={text} disablePadding sx={{ display: "block" }}>
+							<ListItemButton
+								sx={{
+									minHeight: 48,
+									justifyContent: open ? "initial" : "center",
+									px: 2.5,
+								}}
+							>
+								<ListItemIcon
+									sx={{
+										minWidth: 0,
+										mr: open ? 3 : "auto",
+										justifyContent: "center",
+									}}
+								>
+									{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+								</ListItemIcon>
+								<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+							</ListItemButton>
+						</ListItem>
+					))}
+				</List>
+
+				<LoadElements type={"Tree"} />
+				<LoadElements type={"Properties"} />
+				<Divider />
+
+				{/* {viewerRef.current && (
 					<Filter3D
 						filters={filters}
 						onFilterChange={handleFilterChange}
 						viewer={viewerRef.current}
 					/>
 				)}
-				<Divider />
+				<Divider /> */}
 			</Drawer>
 			<Box component="main" sx={{ flexGrow: 1 }}>
 				<DrawerHeader />
