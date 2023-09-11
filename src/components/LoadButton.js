@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { IfcViewerAPI } from "web-ifc-viewer";
 import { Button, Box } from "@mui/material";
-import { Color, LineBasicMaterial, MeshBasicMaterial } from "three";
+import { Color } from "three";
 
-import OpenModal from "../components/OpenModal";
+import OpenFloor from "./openFloor";
 
-const LoadLocalIFC = () => {
+const LoadButtons = () => {
 	const viewerRef = useRef();
 	const fileInputRef = useRef(null);
 	const [sectionData, setSectionData] = useState();
@@ -16,7 +16,9 @@ const LoadLocalIFC = () => {
 	const [selectedLevel, setSelectedLevel] = useState(null);
 	const [clippingPlane, setClippingPlane ] = useState(false)
 
-	useEffect(async () => {
+	// const viewer = viewerRef.current;
+
+	const initializeViewer = async () => {
 		const canvasContainer = document.getElementById("viewer-container");
 
 		const viewer = new IfcViewerAPI({
@@ -36,15 +38,14 @@ const LoadLocalIFC = () => {
 		//-------------------------------------------------------------------------------------------
 		// Onclick event method
 		//-------------------------------------------------------------------------------------------
-		window.onmouseover = viewer.IFC.selector.highlightIfcItem(true)
-		
+		window.onmouseover = viewer.IFC.selector.highlightIfcItem(true);
+
 		window.ondblclick = async () => {
 			viewer.IFC.selector.pickIfcItem();
 
 			window.ondblclick = async () => {
 				const found = await viewer.IFC.selector.pickIfcItem();
 
-				
 				//-------------------------------------------------------------------------------------------
 				//Get Properties from IFC model
 				//-------------------------------------------------------------------------------------------
@@ -58,7 +59,6 @@ const LoadLocalIFC = () => {
 						found.modelID,
 						found.id
 					);
-					setModalOpen(true);
 
 					console.log(result);
 					console.log(result1);
@@ -76,6 +76,10 @@ const LoadLocalIFC = () => {
 				}
 			};
 		};
+	};
+
+	useEffect(() => {
+		initializeViewer();
 	}, []);
 
 	//--------------------------------------------------------------------------
@@ -183,6 +187,7 @@ const LoadLocalIFC = () => {
 				// Obtener la estructura espacial
 				const spatialStructure =
 					await viewerRef.current.IFC.getSpatialStructure(model.modelID);
+				setModel(model);
 				setTreeData(spatialStructure);
 				// console.log(spatialStructure);
 			} catch (error) {
@@ -195,21 +200,17 @@ const LoadLocalIFC = () => {
 		fileInputRef.current.click();
 	};
 
-	// encargado de cargar Floors
-	const handleLevelSelect = (expressID) =>{
-		setSelectedLevel(expressID)
-		const viewer = viewerRef.current;
-		const viewPlans =viewer.plans.goTo(model.modelID, expressID)
-		console.log(viewPlans)
-		viewer.edges.toggle("example", true)
-	  }
-
-
-
 	//-----------------------------------------------------------------------------------------------
 	//JSX
 	//-----------------------------------------------------------------------------------------------
 	return (
+		<Box sx={{ display: "flex" }}>
+			<OpenFloor
+				selectedLevel={selectedLevel}
+				setSelectedLevel={setSelectedLevel}
+				viewerRef={viewerRef}
+				model={model}
+			/>
 
 		<Box>
 			
@@ -257,9 +258,6 @@ const LoadLocalIFC = () => {
     			: <p>No Floors Available </p>}
 			</Box>
 
-			<Button onClick={handleFileUpload} variant="contained">
-				Load File
-			</Button>
 			<input
 				type="file"
 				id="file-input"
@@ -268,13 +266,8 @@ const LoadLocalIFC = () => {
 				onChange={handleFileChange}
 				accept=".ifc, .ifcXML, .ifcZIP,*.*"
 			/>
-			<OpenModal
-				isOpen={modalOpen}
-				handleClose={() => setModalOpen(false)}
-				sectionData={sectionData}
-			/>
 		</Box>
 	);
 };
 
-export default LoadLocalIFC;
+export default LoadButtons;

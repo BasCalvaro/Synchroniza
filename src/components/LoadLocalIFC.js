@@ -4,7 +4,7 @@ import StraightenIcon from "@mui/icons-material/Straighten";
 
 import Drawer from "./Drawer";
 
-export default function LoadLocalIFC({viewerRef}) {
+export default function LoadLocalIFC({ viewerRef, sectionData }) {
 	const [isDimensionActive, setDimensionActive] = useState(false);
 
 	//---------------------------------------------------------------------------------------------
@@ -27,13 +27,13 @@ export default function LoadLocalIFC({viewerRef}) {
 	//-----------------------------------------------------------------------------------------------
 	return (
 		<>
-			<Drawer viewerRef={viewerRef} />
+			<Drawer viewerRef={viewerRef}/>
+			
+			<IconButton onClick={handleDimensionClick}>
+				<StraightenIcon />
+			</IconButton>
 
 			<Container maxWidth="100%" sx={{ backgroundColor: "#EFEBEB" }}>
-				<IconButton onClick={handleDimensionClick}>
-					<StraightenIcon />
-				</IconButton>
-
 				<Box>
 					<div id="viewer-container"></div>
 				</Box>

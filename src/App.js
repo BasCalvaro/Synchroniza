@@ -1,7 +1,6 @@
 import React from "react";
 import { useRef } from "react";
 import LoadLocalIFC from "./components/LoadLocalIFC";
-import MiniDrawer from "./components/Drawer";
 import { DimensionProvider } from "./components/DimesionControl";
 
 function App() {

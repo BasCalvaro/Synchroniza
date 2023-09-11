@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import {
 	Box,
@@ -18,32 +18,13 @@ import MuiAppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import ManageSearchIcon from "@mui/icons-material/ManageSearch";
+import AccountTreeIcon from "@mui/icons-material/AccountTree";
 
 import LoadButton from "./LoadButton";
+import LoadElements from "./LoadElements";
 
 import Filter3D from "../components/Filter3D";
-
-import {
-	IFCWALLSTANDARDCASE,
-	IFCSLAB,
-	IFCDOOR,
-	IFCWINDOW,
-	IFCFURNISHINGELEMENT,
-	IFCMEMBER,
-	IFCPLATE,
-} from "web-ifc";
-
-const categories = {
-	IFCWALLSTANDARDCASE,
-	IFCSLAB,
-	IFCFURNISHINGELEMENT,
-	IFCDOOR,
-	IFCWINDOW,
-	IFCPLATE,
-	IFCMEMBER,
-};
 
 const drawerWidth = 240;
 
@@ -112,33 +93,22 @@ const Drawer = styled(MuiDrawer, {
 	}),
 }));
 
-export default function MiniDrawer(viewerRef) {
-	const [subsets, setSubsets] = useState({});
-	const [filters, setFilters] = useState({
-		IFCWALLSTANDARDCASE: true,
-		IFCSLAB: true,
-		IFCFURNISHINGELEMENT: true,
-		IFCDOOR: true,
-		IFCWINDOW: true,
-		IFCPLATE: true,
-		IFCMEMBER: true,
-	});
-
+export default function MiniDrawer() {
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
+	const [activeTab, setActiveTab] = React.useState(null);
 
 	//---------------------------------------------------------------------------------------------
 	//HANDLERS - CARGA DEL MODELO - CARGA DE SPACIALSTRUCTURE
 	//---------------------------------------------------------------------------------------------
 
-	const handleFilterChange = (categoryName, isChecked, category) => {
-		setFilters({ ...filters, [categoryName]: isChecked });
-		const subset = subsets[category];
-		console.log("Eliminando", subset, subsets);
-		if (isChecked) viewerRef.current.getScene.add(subset);
-		else subset.removeFromParent();
+	const handleTabClick = (tab) => {
+		if (activeTab === tab) {
+			setActiveTab(null); // Si se hace clic en el mismo ícono, oculta el contenido
+		} else {
+			setActiveTab(tab); // Si se hace clic en un ícono diferente, muestra el contenido correspondiente
+		}
 	};
-
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -184,14 +154,42 @@ export default function MiniDrawer(viewerRef) {
 					</IconButton>
 				</DrawerHeader>
 				<Divider />
-				{viewerRef.current && (
+				<List>
+					{["Element Tree", "Properties"].map((text, index) => (
+						<ListItem key={text} disablePadding sx={{ display: "block" }}>
+							<ListItemButton
+								sx={{
+									minHeight: 48,
+									justifyContent: open ? "initial" : "center",
+									px: 2.5,
+								}}
+							>
+								<ListItemIcon
+									sx={{
+										minWidth: 0,
+										mr: open ? 3 : "auto",
+										justifyContent: "center",
+									}}
+								>
+									{index % 2 === 0 ? <AccountTreeIcon /> : <ManageSearchIcon />}
+								</ListItemIcon>
+								<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+							</ListItemButton>
+						</ListItem>
+					))}
+				</List>
+				{activeTab === "Element Tree" && <LoadElements type={"Tree"} />}
+				{activeTab === "Properties" && <LoadElements type={"Properties"} />}
+				<Divider />
+
+				{/* {viewerRef.current && (
 					<Filter3D
 						filters={filters}
 						onFilterChange={handleFilterChange}
 						viewer={viewerRef.current}
 					/>
 				)}
-				<Divider />
+				<Divider /> */}
 			</Drawer>
 			<Box component="main" sx={{ flexGrow: 1 }}>
 				<DrawerHeader />
