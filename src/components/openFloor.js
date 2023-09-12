@@ -28,6 +28,16 @@ const OpenFloor = ({setSelectedLevel, viewerRef, model}) => {
 		viewer.edges.toggle("example", true);
 	};
 
+	// reestablecer la vista 3D
+	const handleExitFloorPlan = () => {
+		const viewer = viewerRef.current;
+		
+		// Restablecer la vista 3D
+		const existFloorPlans=viewer.plans.exitPlanView(model.modelID);
+		console.log(existFloorPlans)
+		// viewer.render();
+		}
+
 	//-------------------------------------------------------------------------
 	// FLOOR PLANTS
 	//-------------------------------------------------------------------------
@@ -70,7 +80,12 @@ const OpenFloor = ({setSelectedLevel, viewerRef, model}) => {
 					Floor Plans
 				</Button>
 			</Box>
-
+			
+			<Button
+          		onClick={handleExitFloorPlan}
+           		variant="contained"
+          		>Exit Floor Plan
+        	</Button>
 			<Popper open={popperOpen}>
 				<Paper
 					sx={{
