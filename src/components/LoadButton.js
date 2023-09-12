@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button, Box } from "@mui/material";
 
@@ -9,6 +9,7 @@ import { useDataContext } from "./context";
 import OpenFloor from "./openFloor";
 
 const LoadButtons = () => {
+	const [isClippingPaneSelected, setClippingPaneSelected] = useState(false);
 	const {
 		viewerRef,
 		fileInputRef,
@@ -43,12 +44,12 @@ const LoadButtons = () => {
 		//-------------------------------------------------------------------------------------------
 		// Onclick event method
 		//-------------------------------------------------------------------------------------------
-		window.onmouseover = viewer.IFC.selector.highlightIfcItem(true);
+		window.onmousemove =()=> viewer.IFC.selector.prePickIfcItem();
 
-		window.ondblclick = async () => {
+		window.onclick = async () => {
 			viewer.IFC.selector.pickIfcItem();
 
-			window.ondblclick = async () => {
+			window.onclick = async () => {
 				const found = await viewer.IFC.selector.pickIfcItem();
 
 				//-------------------------------------------------------------------------------------------
@@ -83,6 +84,77 @@ const LoadButtons = () => {
 
 	
 	}, [setSectionData]);
+
+	// /---------------------------------------------------------------------------------------------
+	// CLIPING PLANES
+	//---------------------------------------------------------------------------------------------
+
+	const toggleClippingPlanes = ()=>{
+        const viewer = viewerRef.current;
+        console.log("que muestera viewer",viewer)
+        const createPlane = viewer.clipper.createPlane();
+        console.log("Creacion de Plano",createPlane)
+       if(viewer){
+        viewer.toggleClippingPlanes();
+        if(viewer.clipper.active){
+          setClippingPaneSelected(true)
+        }else{
+          setClippingPaneSelected(false)
+        }
+
+       }
+       }
+
+// 	   const handleKeyDown = (event) => {
+//         const viewer = viewerRef.current;
+
+//         if (!viewer) return;
+
+//         switch (event.code) {
+//             case 'KeyP':
+//                 viewer.clipper.createPlane();
+//                 break;
+//             case 'KeyO':
+//                 viewer.clipper.deletePlane();
+//                 break;
+//             default:
+//                 break;
+//         }
+   
+
+//     window.addEventListener('keydown', handleKeyDown);
+
+//     // Limpia el event listener cuando el componente se desmonte
+//     return () => {
+//         window.removeEventListener('keydown', handleKeyDown);
+//     };
+
+
+// };
+
+
+
+
+
+       window.onkeydown =(e)=>{
+        const viewer = viewerRef.current;
+        if(e.code ==="KeyP"){
+          viewer.clipper.createPlane();
+        }
+
+       }
+
+
+	//    window.onkeydown =(e)=>{
+    //     const viewer = viewerRef.current;
+    //     if(e.code ==="KeyO"){
+    //       viewer.clipper.deletePlane();
+    //     }
+
+    //    }
+
+
+
 
 	//---------------------------------------------------------------------------------------------
 	//HANDLERS - CARGA DEL MODELO - CARGA DE SPACIALSTRUCTURE
@@ -124,6 +196,19 @@ const LoadButtons = () => {
 				viewerRef={viewerRef}
 				setSelectedLevel={setSelectedLevel}
 			/>
+			<Box>
+      			<Button 
+      				variant="contained"
+      				key={"showPlane"}
+      				onClick={()=>toggleClippingPlanes()}
+      				selected={isClippingPaneSelected}
+            		>Clipping Planes
+      			</Button>
+      		</Box>
+
+
+
+
 
 			<Box sx={{ px: 1 }}>
 				<Button onClick={handleFileUpload} variant="contained">
