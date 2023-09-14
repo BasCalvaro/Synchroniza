@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Button, Box, Popper, Paper, Typography } from "@mui/material";
 
-const OpenFloor = ({setSelectedLevel, viewerRef, model}) => {
+const OpenFloor = ({ setSelectedLevel, viewerRef, model }) => {
 	const [popperOpen, setPopperOpen] = useState(false);
 	const [popperAnchorEl, setPopperAnchorEl] = useState(null);
 	const [allPlans, setAllPlans] = useState([]);
-
 
 	//-------------------------------------------------------------------------
 	// FLOOR PLANS
@@ -31,12 +30,12 @@ const OpenFloor = ({setSelectedLevel, viewerRef, model}) => {
 	// reestablecer la vista 3D
 	const handleExitFloorPlan = () => {
 		const viewer = viewerRef.current;
-		
+
 		// Restablecer la vista 3D
-		const existFloorPlans=viewer.plans.exitPlanView(model.modelID);
-		console.log(existFloorPlans)
+		const existFloorPlans = viewer.plans.exitPlanView(model.modelID);
+		console.log(existFloorPlans);
 		// viewer.render();
-		}
+	};
 
 	//-------------------------------------------------------------------------
 	// FLOOR PLANTS
@@ -80,12 +79,10 @@ const OpenFloor = ({setSelectedLevel, viewerRef, model}) => {
 					Floor Plans
 				</Button>
 			</Box>
-			
-			<Button
-          		onClick={handleExitFloorPlan}
-           		variant="contained"
-          		>Exit Floor Plan
-        	</Button>
+
+			<Button onClick={handleExitFloorPlan} variant="contained">
+				Exit Floor Plan
+			</Button>
 			<Popper open={popperOpen}>
 				<Paper
 					sx={{
@@ -96,7 +93,7 @@ const OpenFloor = ({setSelectedLevel, viewerRef, model}) => {
 						bgcolor: "white",
 						boxShadow: 6,
 						py: 3,
-						px: 5
+						px: 5,
 					}}
 				>
 					<Box
@@ -116,7 +113,7 @@ const OpenFloor = ({setSelectedLevel, viewerRef, model}) => {
 							allPlans.map((plan) => (
 								<div key={plan.expressID}>
 									<Button onClick={() => handleLevelSelect(plan.expressID)}>
-									{plan.name}
+										{plan.name}
 									</Button>
 								</div>
 							))

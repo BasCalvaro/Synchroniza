@@ -13,7 +13,6 @@ const LoadElements = ({
 	setSectionData,
 	viewerRef,
 }) => {
-
 	const initializeViewer = useCallback(async () => {
 		const canvasContainer = document.getElementById("viewer-container");
 
@@ -66,36 +65,17 @@ const LoadElements = ({
 				}
 			};
 		};
-	}, [viewerRef,setSectionData]);
+	}, [viewerRef, setSectionData]);
 
 	useEffect(() => {
 		initializeViewer();
 	}, [initializeViewer]);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
 	//-----------------------------------------------------------------------------------------------
 	//JSX
 	//-----------------------------------------------------------------------------------------------
 	return (
 		<Box>
-			{console.log(treeData)}
-			{console.log(setTreeData)}
 			{type === "Tree" ? (
 				<>
 					<div

@@ -19,29 +19,33 @@ export default function LoadLocalIFC({ viewerRef }) {
 	//JSX
 	//-----------------------------------------------------------------------------------------------
 	return (
-		<>
+		<Box>
 			<NavBar viewerRef={viewerRef} />
-
-			<div>
+			<Box
+				sx={{
+					display: "flex",
+					flexDirection: "row",
+				}}
+			>
 				<LateralBar
 					treeData={treeData}
 					sectionData={sectionData}
 					setSectionData={setSectionData}
 					viewerRef={viewerRef}
 				/>
-				<Container maxWidth="100%" sx={{ backgroundColor: "#EFEBEB" }}>
+				<Box>
 					<Box>
 						<div id="viewer-container"></div>
 					</Box>
-				</Container>
 
-				<input
-					type="file"
-					ref={fileInputRef}
-					onChange={(e) => setSelectedFile(e.target.files[0])}
-					style={{ display: "none" }}
-				/>
-			</div>
-		</>
+					<input
+						type="file"
+						ref={fileInputRef}
+						onChange={(e) => setSelectedFile(e.target.files[0])}
+						style={{ display: "none" }}
+					/>
+				</Box>
+			</Box>
+		</Box>
 	);
 }

@@ -14,7 +14,5 @@ code {
 
 canvas {
 	height: 93vh;
-	width: fit-content;
-	margin-top: -40px;
-	margin-left: 24px;
+	width: 100%;
 }

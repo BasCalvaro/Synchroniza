@@ -1,32 +1,17 @@
 import React, { useState } from "react";
-import { styled } from "@mui/material/styles";
-import { Box, Toolbar, Typography, IconButton } from "@mui/material";
 
-import MuiAppBar from "@mui/material/AppBar";
-
+import {
+	Box,
+	Toolbar,
+	Typography,
+	IconButton,
+	AppBar,
+	Container,
+} from "@mui/material";
 import SquareFootIcon from "@mui/icons-material/SquareFoot";
+import BusinessIcon from "@mui/icons-material/Business";
 
 import LoadButton from "./LoadButton";
-
-const drawerWidth = 360;
-
-const AppBar = styled(MuiAppBar, {
-	shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-	zIndex: theme.zIndex.drawer + 1,
-	transition: theme.transitions.create(["width", "margin"], {
-		easing: theme.transitions.easing.sharp,
-		duration: theme.transitions.duration.leavingScreen,
-	}),
-	...(open && {
-		marginLeft: drawerWidth,
-		width: `calc(100% - ${drawerWidth}px)`,
-		transition: theme.transitions.create(["width", "margin"], {
-			easing: theme.transitions.easing.sharp,
-			duration: theme.transitions.duration.enteringScreen,
-		}),
-	}),
-}));
 
 export default function MiniDrawer({ viewerRef }) {
 	//---------------------------------------------------------------------------------------------
@@ -51,20 +36,35 @@ export default function MiniDrawer({ viewerRef }) {
 	//JSX
 	//---------------------------------------------------------------------------------------------
 	return (
-		<Box>
-			<AppBar>
-				<Toolbar sx={{ p: 2.5 }}>
-					<Typography variant="h6" sx={{ flexGrow: 1 }}>
+		<AppBar position="static">
+			<Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+				<Box sx={{ display: "flex", alignItems: "center" }}>
+					<BusinessIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+					<Typography
+						variant="h6"
+						component="a"
+						href="/"
+						sx={{
+							mr: 2,
+							display: { xs: "none", md: "flex" },
+							fontFamily: "monospace",
+							fontWeight: 700,
+							letterSpacing: ".3rem",
+							color: "inherit",
+							textDecoration: "none",
+						}}
+					>
 						Synchroniza 3D - IFC
 					</Typography>
+				</Box>
 
+				<Box sx={{ display: "flex", alignItems: "center" }}>
 					<IconButton onClick={handleDimensionClick}>
 						<SquareFootIcon sx={{ color: "white" }} />
 					</IconButton>
-
 					<LoadButton />
-				</Toolbar>
-			</AppBar>
-		</Box>
+				</Box>
+			</Toolbar>
+		</AppBar>
 	);
 }

@@ -14,18 +14,18 @@ export const DataProvider = ({ children }) => {
 	return (
 		<DataContext.Provider
 			value={{
-        viewerRef,
-        fileInputRef,
-        selectedLevel,
-        setSelectedLevel,
-        selectedFileName,
-        setSelectedFileName,
-        model,
-        setModel,
-        treeData,
-        setTreeData,
-        sectionData,
-        setSectionData,
+				viewerRef,
+				fileInputRef,
+				selectedLevel,
+				setSelectedLevel,
+				selectedFileName,
+				setSelectedFileName,
+				model,
+				setModel,
+				treeData,
+				setTreeData,
+				sectionData,
+				setSectionData,
 			}}
 		>
 			{children}
