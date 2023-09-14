@@ -38,6 +38,11 @@ const LoadElements = ({
 			window.ondblclick = async () => {
 				const found = await viewer.IFC.selector.pickIfcItem();
 
+
+  				//-------------------------------------------------------------------------------------------
+				//Get Properties from IFC model
+				//-------------------------------------------------------------------------------------------
+				
 				if (found) {
 					const result = await viewer.IFC.loader.ifcManager.getItemProperties(
 						found.modelID,
@@ -48,21 +53,56 @@ const LoadElements = ({
 						found.id
 					);
 
-					console.log(result);
-					console.log(result1);
+					const result2 = await viewer.IFC.loader.ifcManager.getPropertySets(found.modelID,
+						found.id,true
+					  );
+			
+					//   setModalOpen(true);
+			
+					  console.log("GetItemsProperties",result);
+					  console.log("GetIFcType",result1);
+					  console.log("GetPropertySets",result2);  
 
-					//-------------------------------------------------------------------------------------------
-					//Get Properties from IFC model
-					//-------------------------------------------------------------------------------------------
-					if (result && result.Name && result.ObjectType && result.Tag) {
-						setSectionData({
-							ExpressID: result.expressID,
-							name: result.Name.value,
-							ObjectType: result.ObjectType.value,
-							Tag: result.Tag.value,
-							IfcCategory: result1,
-						});
-					}
+		 //-------------------------------------------------------------------------------------------
+          //Get Quantities
+          //-------------------------------------------------------------------------------------------
+        
+		  const extractValue = (quantitiesArray, key, name) => {
+			// Busca en el arreglo por la clave especificada y devuelve el valor si lo encuentra
+			const item = quantitiesArray.find(quantity => quantity[key] && quantity.Name.value === name);
+			return item ? item[key].value : null;
+		  };
+
+			//   Usamos el método find para buscar el objeto IfcElementQuantity dentro de result2
+			const elementQuantity = result2.find(item => item.Quantities);
+
+			let data = {
+			name: result.Name.value,
+			ExpressID: result.expressID,
+			ObjectType: result.ObjectType.value,
+			Tag: result.Tag.value,
+			IfcCategory: result1
+			}
+						
+			if (elementQuantity) {
+				// Usamos la función extractValue para obtener los valores de interés
+				const volumenValue = extractValue(elementQuantity.Quantities, 'VolumeValue', "NetVolume");
+				const areaValue = extractValue(elementQuantity.Quantities, 'AreaValue', 'NetSideArea');
+				const heightValue = extractValue(elementQuantity.Quantities, 'LengthValue', 'Height');
+				const lengthValue = extractValue(elementQuantity.Quantities, 'LengthValue', 'Length');
+				const widthValue = extractValue(elementQuantity.Quantities, 'LengthValue', 'Width');
+			  
+				data = {
+				  ...data,
+				  Height: heightValue,
+				  Length: lengthValue,
+				  Width: widthValue,
+				  Volumen: volumenValue,
+				  Area: areaValue,
+				}
+			  }
+			  setSectionData(data);
+					
 				}
 			};
 		};
