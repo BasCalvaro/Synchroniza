@@ -24,7 +24,7 @@ Synchroniza App Visualizer is a cutting-edge 3D visualization software designed 
 
 - **Libreries**:
   
-  ![React Badge](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=000&style=plastic)   ![Three.js Badge](https://img.shields.io/badge/Three.js-000?logo=threedotjs&logoColor=fff&style=plastic)  ![MUI Badge](https://img.shields.io/badge/MUI-007FFF?logo=mui&logoColor=fff&style=plastic)   <img src="src/Asset/images%20ifcjs.png" alt="IFC.js Icon" width="25" height="25">
+  ![React Badge](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=000&style=plastic)   ![Three.js Badge](https://img.shields.io/badge/Three.js-000?logo=threedotjs&logoColor=fff&style=plastic)  ![MUI Badge](https://img.shields.io/badge/MUI-007FFF?logo=mui&logoColor=fff&style=plastic)   <img  src="src/Asset/images%20ifcjs.png" alt="IFC.js Icon" width="25" height="25" >
 
 
 - **Tools and Platffomrs**:
