@@ -13,8 +13,10 @@ code {
 }
 
 canvas {
-	height: 93vh;
-	width: fit-content;
-	margin-top: -40px;
-	margin-left: 24px;
+	height: 100vh;
+	width: 100vh;
+	color: gray;
+	background-color: grey;
+	/* height: 100%; */
+	/* position: absolute; */
 }

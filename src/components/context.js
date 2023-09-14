@@ -10,22 +10,31 @@ export const DataProvider = ({ children }) => {
 	const [sectionData, setSectionData] = useState();
 	const [selectedLevel, setSelectedLevel] = useState(null);
 	const [selectedFileName, setSelectedFileName] = useState(null);
+	const [isDimensionActive, setDimensionActive] = useState(false);
+	const [isMeasureActive, setMeasureActive] = useState(false);
+	const [isClippingActive, setClippingActive] = useState(false);
 
 	return (
 		<DataContext.Provider
 			value={{
-        viewerRef,
-        fileInputRef,
-        selectedLevel,
-        setSelectedLevel,
-        selectedFileName,
-        setSelectedFileName,
-        model,
-        setModel,
-        treeData,
-        setTreeData,
-        sectionData,
-        setSectionData,
+				viewerRef,
+				fileInputRef,
+				selectedLevel,
+				setSelectedLevel,
+				selectedFileName,
+				setSelectedFileName,
+				model,
+				setModel,
+				treeData,
+				setTreeData,
+				sectionData,
+				setSectionData,
+				isDimensionActive,
+				setDimensionActive,
+				isMeasureActive,
+				setMeasureActive,
+				isClippingActive,
+				setClippingActive,
 			}}
 		>
 			{children}

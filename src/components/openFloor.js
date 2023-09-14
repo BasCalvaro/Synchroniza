@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import { Button, Box, Popper, Paper, Typography } from "@mui/material";
 
-const OpenFloor = ({setSelectedLevel, viewerRef, model}) => {
+const OpenFloor = ({ setSelectedLevel, viewerRef, model }) => {
 	const [popperOpen, setPopperOpen] = useState(false);
 	const [popperAnchorEl, setPopperAnchorEl] = useState(null);
 	const [allPlans, setAllPlans] = useState([]);
-
 
 	//-------------------------------------------------------------------------
 	// FLOOR PLANS
 	//-------------------------------------------------------------------------
 
 	const handleFloorPlansClick = (event) => {
-		console.log(popperOpen);
-		console.log(popperAnchorEl);
+		// console.log(popperOpen);
+		// console.log(popperAnchorEl);
 		showFloorPlans();
 		setPopperOpen(!popperOpen);
 		setPopperAnchorEl(popperOpen ? null : event.currentTarget);
@@ -31,12 +30,12 @@ const OpenFloor = ({setSelectedLevel, viewerRef, model}) => {
 	// reestablecer la vista 3D
 	const handleExitFloorPlan = () => {
 		const viewer = viewerRef.current;
-		
+
 		// Restablecer la vista 3D
-		const existFloorPlans=viewer.plans.exitPlanView(model.modelID);
-		console.log(existFloorPlans)
+		const existFloorPlans = viewer.plans.exitPlanView(model.modelID);
+		console.log(existFloorPlans);
 		// viewer.render();
-		}
+	};
 
 	//-------------------------------------------------------------------------
 	// FLOOR PLANTS
@@ -47,18 +46,18 @@ const OpenFloor = ({setSelectedLevel, viewerRef, model}) => {
 		const modelID = model.modelID;
 
 		const viewerPlans = await viewer.plans.computeAllPlanViews(modelID);
-		console.log("vista de planos ", viewerPlans);
+		// console.log("vista de planos ", viewerPlans);
 
 		const plansFromViewer = viewer.plans.getAll(modelID);
 		let collectedPlans = [];
 
 		for (const expressID of plansFromViewer) {
-			console.log(expressID);
-			// const currentPlan = viewer.plans.planLists[modelID][expressID];
+			// console.log(expressID);
+			const currentPlan = viewer.plans.planLists[modelID][expressID];
 			// console.log(currentPlan)
 
 			const allPlansData = viewer.plans.planLists[modelID][expressID];
-			console.log("Conseguir allplans", allPlansData);
+			// console.log("Conseguir allplans", allPlansData);
 
 			collectedPlans.push(allPlansData);
 		}
@@ -73,6 +72,7 @@ const OpenFloor = ({setSelectedLevel, viewerRef, model}) => {
 		<Box sx={{ display: "flex" }}>
 			<Box sx={{ px: 1 }}>
 				<Button
+					sx={{ fontFamily: "monospace" }}
 					onClick={handleFloorPlansClick}
 					variant="contained"
 					aria-describedby={popperOpen ? "floor-plans-popper" : undefined}
@@ -80,23 +80,24 @@ const OpenFloor = ({setSelectedLevel, viewerRef, model}) => {
 					Floor Plans
 				</Button>
 			</Box>
-			
+
 			<Button
-          		onClick={handleExitFloorPlan}
-           		variant="contained"
-          		>Exit Floor Plan
-        	</Button>
+				sx={{ fontFamily: "monospace" }}
+				onClick={handleExitFloorPlan}
+				variant="contained"
+			>
+				Exit Floor Plan
+			</Button>
 			<Popper open={popperOpen}>
 				<Paper
 					sx={{
 						position: "fixed",
-						top: "80%",
-						left: "80%",
-						transform: "translate(-50%, -50%)",
+						bottom: "15%",
+						right: "4%",
 						bgcolor: "white",
 						boxShadow: 6,
 						py: 3,
-						px: 5
+						px: 3,
 					}}
 				>
 					<Box
@@ -107,16 +108,23 @@ const OpenFloor = ({setSelectedLevel, viewerRef, model}) => {
 							pb: 2,
 						}}
 					>
-						<Typography variant="h6" component="h2">
+						<Typography
+							sx={{ fontFamily: "monospace" }}
+							variant="h6"
+							component="h2"
+						>
 							Floor Plans Filters
 						</Typography>
 					</Box>
 					<div>
 						{allPlans ? (
-							allPlans.map((plan) => (
-								<div key={plan.expressID}>
-									<Button onClick={() => handleLevelSelect(plan.expressID)}>
-									{plan.name}
+							allPlans.map((plan, index) => (
+								<div key={index}>
+									<Button
+										sx={{ fontFamily: "monospace" }}
+										onClick={() => handleLevelSelect(plan.expressID)}
+									>
+										{plan.name}
 									</Button>
 								</div>
 							))

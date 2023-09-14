@@ -25,7 +25,6 @@ const IfcTreeItem = ({ node, level }) => {
 	return (
 		<div style={{}}>
 			<List
-				// sx={{ width: "100%", marginLeft: 0, marginTop: 0 }}
 				component="nav"
 				aria-labelledby="nested-list-subheader"
 			>
