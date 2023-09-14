@@ -91,6 +91,7 @@ export default function LoadLocalIFC() {
 					bottom: "5%",
 					right: "4%",
 					backgroundColor: "Dodgerblue",
+					backgroundColor: isDimensionActive ? "green" : "Dodgerblue",
 				}}
 			>
 				<SquareFootIcon fontSize="large" sx={{ color: "white" }} />

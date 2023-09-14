@@ -263,6 +263,8 @@ const LoadButtons = () => {
 				<Button
 					sx={{
 						fontFamily: "monospace",
+						backgroundColor: isClippingPaneSelected ? "green" : "inherit",
+						color: isClippingPaneSelected ? "white" : "inherit",
 					}}
 					variant="contained"
 					key={"showPlane"}
