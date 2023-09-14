@@ -1,4 +1,4 @@
-<img src="src/Asset/banner.png" alt="IFC.js Icon" width="700" height="300">
+<img src="src/Asset/banner.png" alt="IFC.js Icon" width="850" height="300">
 
 
 # Synchroniza 3D App Visualizer
@@ -53,4 +53,4 @@ To get a copy of this project and run in your local environment follow the steps
 
 
 ---
-Made with ❤️ by [Your Alvaro Basualto/Pedro Barahona/Syncroniza](https://syncroniza.cl).
+Made with ❤️ by [Alvaro Basoalto/Pedro Barahona/Syncroniza](https://syncroniza.cl).
