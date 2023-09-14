@@ -10,6 +10,9 @@ export const DataProvider = ({ children }) => {
 	const [sectionData, setSectionData] = useState();
 	const [selectedLevel, setSelectedLevel] = useState(null);
 	const [selectedFileName, setSelectedFileName] = useState(null);
+	const [isDimensionActive, setDimensionActive] = useState(false);
+	const [isMeasureActive, setMeasureActive] = useState(false);
+	const [isClippingActive, setClippingActive] = useState(false);
 
 	return (
 		<DataContext.Provider
@@ -26,6 +29,12 @@ export const DataProvider = ({ children }) => {
 				setTreeData,
 				sectionData,
 				setSectionData,
+				isDimensionActive,
+				setDimensionActive,
+				isMeasureActive,
+				setMeasureActive,
+				isClippingActive,
+				setClippingActive,
 			}}
 		>
 			{children}

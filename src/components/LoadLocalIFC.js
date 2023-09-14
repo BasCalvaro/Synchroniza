@@ -7,27 +7,35 @@ import { useDataContext } from "./context";
 import NavBar from "./NavBar";
 import LateralBar from "./LateralBar";
 
-export default function LoadLocalIFC({ viewerRef }) {
+export default function LoadLocalIFC() {
 	//---------------------------------------------------------------------------------------------
 	//HANDLERS
 	//---------------------------------------------------------------------------------------------
 
-	const { treeData, sectionData, setSectionData } = useDataContext();
 	const fileInputRef = useRef(null);
 	const [selectedFile, setSelectedFile] = useState(null);
-
-	const [isDimensionActive, setDimensionActive] = useState(false);
+	const {
+		viewerRef,
+		treeData,
+		setTreeData,
+		sectionData,
+		setSectionData,
+		isDimensionActive,
+		setDimensionActive,
+		isMeasureActive,
+		setMeasureActive,
+	} = useDataContext();
 
 	const handleDimensionClick = () => {
 		const viewer = viewerRef.current;
 		if (!isDimensionActive) {
-			viewer.dimensions.active = true;
-			viewer.dimensions.previewActive = true;
+			setDimensionActive(true);
 		} else {
 			viewer.dimensions.active = false;
 			viewer.dimensions.previewActive = false;
+			setDimensionActive(false);
 		}
-		setDimensionActive(!isDimensionActive);
+		console.log(isDimensionActive);
 	};
 
 	//-----------------------------------------------------------------------------------------------
@@ -81,7 +89,7 @@ export default function LoadLocalIFC({ viewerRef }) {
 				sx={{
 					position: "fixed",
 					bottom: "5%",
-					right: "5%",
+					right: "4%",
 					backgroundColor: "Dodgerblue",
 				}}
 			>

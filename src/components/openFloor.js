@@ -11,8 +11,8 @@ const OpenFloor = ({ setSelectedLevel, viewerRef, model }) => {
 	//-------------------------------------------------------------------------
 
 	const handleFloorPlansClick = (event) => {
-		console.log(popperOpen);
-		console.log(popperAnchorEl);
+		// console.log(popperOpen);
+		// console.log(popperAnchorEl);
 		showFloorPlans();
 		setPopperOpen(!popperOpen);
 		setPopperAnchorEl(popperOpen ? null : event.currentTarget);
@@ -46,18 +46,18 @@ const OpenFloor = ({ setSelectedLevel, viewerRef, model }) => {
 		const modelID = model.modelID;
 
 		const viewerPlans = await viewer.plans.computeAllPlanViews(modelID);
-		console.log("vista de planos ", viewerPlans);
+		// console.log("vista de planos ", viewerPlans);
 
 		const plansFromViewer = viewer.plans.getAll(modelID);
 		let collectedPlans = [];
 
 		for (const expressID of plansFromViewer) {
-			console.log(expressID);
-			// const currentPlan = viewer.plans.planLists[modelID][expressID];
+			// console.log(expressID);
+			const currentPlan = viewer.plans.planLists[modelID][expressID];
 			// console.log(currentPlan)
 
 			const allPlansData = viewer.plans.planLists[modelID][expressID];
-			console.log("Conseguir allplans", allPlansData);
+			// console.log("Conseguir allplans", allPlansData);
 
 			collectedPlans.push(allPlansData);
 		}
@@ -92,9 +92,8 @@ const OpenFloor = ({ setSelectedLevel, viewerRef, model }) => {
 				<Paper
 					sx={{
 						position: "fixed",
-						top: "80%",
-						left: "80%",
-						transform: "translate(-50%, -50%)",
+						bottom: "15%",
+						right: "4%",
 						bgcolor: "white",
 						boxShadow: 6,
 						py: 3,
@@ -119,8 +118,8 @@ const OpenFloor = ({ setSelectedLevel, viewerRef, model }) => {
 					</Box>
 					<div>
 						{allPlans ? (
-							allPlans.map((plan) => (
-								<div key={plan.expressID}>
+							allPlans.map((plan, index) => (
+								<div key={index}>
 									<Button
 										sx={{ fontFamily: "monospace" }}
 										onClick={() => handleLevelSelect(plan.expressID)}

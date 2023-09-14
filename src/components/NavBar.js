@@ -1,11 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-import {
-	Box,
-	Toolbar,
-	Typography,
-	AppBar,
-} from "@mui/material";
+import { Box, Toolbar, Typography, AppBar } from "@mui/material";
 import BusinessIcon from "@mui/icons-material/Business";
 
 import LoadButton from "./LoadButton";
@@ -14,8 +9,6 @@ export default function MiniDrawer() {
 	//---------------------------------------------------------------------------------------------
 	//HANDLERS - CARGA DEL MODELO - CARGA DE SPACIALSTRUCTURE
 	//---------------------------------------------------------------------------------------------
-
-
 
 	//---------------------------------------------------------------------------------------------
 	//JSX
@@ -44,7 +37,6 @@ export default function MiniDrawer() {
 				</Box>
 
 				<Box sx={{ display: "flex", alignItems: "center" }}>
-
 					<LoadButton />
 				</Box>
 			</Toolbar>

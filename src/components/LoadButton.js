@@ -20,6 +20,8 @@ const LoadButtons = () => {
 		setTreeData,
 		sectionData,
 		setSectionData,
+		isDimensionActive,
+		setDimensionActive,
 	} = useDataContext();
 
 	useEffect(() => {
@@ -69,9 +71,9 @@ const LoadButtons = () => {
 						true
 					);
 
-					console.log("GetItemsProperties", result);
-					console.log("GetIFcType", result1);
-					console.log("GetPropertySets", result2);
+					// console.log("GetItemsProperties", result);
+					// console.log("GetIFcType", result1);
+					// console.log("GetPropertySets", result2);
 
 					const extractValue = (quantitiesArray, key, name) => {
 						// Busca en el arreglo por la clave especificada y devuelve el valor si lo encuentra
@@ -141,7 +143,7 @@ const LoadButtons = () => {
 
 	const toggleClippingPlanes = () => {
 		const viewer = viewerRef.current;
-		console.log("que muestera viewer", viewer);
+		console.log("que muestra viewer", viewer);
 		const createPlane = viewer.clipper.createPlane();
 		console.log("Creacion de Plano", createPlane);
 		if (viewer) {
@@ -154,45 +156,56 @@ const LoadButtons = () => {
 		}
 	};
 
-	// 	   const handleKeyDown = (event) => {
-	//         const viewer = viewerRef.current;
+	// const handleKeyDown = (event) => {
+	// 	const viewer = viewerRef.current;
 
-	//         if (!viewer) return;
+	// 	if (!viewer) return;
 
-	//         switch (event.code) {
-	//             case 'KeyP':
-	//                 viewer.clipper.createPlane();
-	//                 break;
-	//             case 'KeyO':
-	//                 viewer.clipper.deletePlane();
-	//                 break;
-	//             default:
-	//                 break;
-	//         }
+	// 	switch (event.code) {
+	// 		case "KeyP":
+	// 			viewer.clipper.createPlane();
+	// 			break;
+	// 		case "KeyO":
+	// 			viewer.clipper.deletePlane();
+	// 			break;
+	// 		default:
+	// 			break;
+	// 	}
 
-	//     window.addEventListener('keydown', handleKeyDown);
+	// 	window.addEventListener("keydown", handleKeyDown);
 
-	//     // Limpia el event listener cuando el componente se desmonte
-	//     return () => {
-	//         window.removeEventListener('keydown', handleKeyDown);
-	//     };
-
+	// 	// Limpia el event listener cuando el componente se desmonte
+	// 	return () => {
+	// 		window.removeEventListener("keydown", handleKeyDown);
+	// 	};
 	// };
 
-	window.onkeydown = (e) => {
+	window.ondblclick = (e) => {
 		const viewer = viewerRef.current;
-		if (e.code === "KeyP") {
+		if (isClippingPaneSelected) {
 			viewer.clipper.createPlane();
 		}
+		if (isDimensionActive) {
+			setClippingPaneSelected(false);
+			viewer.dimensions.active = true;
+			viewer.dimensions.previewActive = true;
+			const newDimension = viewer.dimensions.create();
+			if (newDimension) {
+				newDimension.style.backgroundColor = "red";
+			}
+		} else if (!isDimensionActive) {
+			viewer.dimensions.active = false;
+			viewer.dimensions.previewActive = false;
+		}
+		console.log(isDimensionActive);
 	};
 
-	//    window.onkeydown =(e)=>{
-	//     const viewer = viewerRef.current;
-	//     if(e.code ==="KeyO"){
-	//       viewer.clipper.deletePlane();
-	//     }
-
-	//    }
+	// window.onkeydown = (e) => {
+	// 	const viewer = viewerRef.current;
+	// 	if (e.code === "KeyO") {
+	// 		viewer.clipper.deletePlane();
+	// 	}
+	// };
 
 	//---------------------------------------------------------------------------------------------
 	//HANDLERS - CARGA DEL MODELO - CARGA DE SPACIALSTRUCTURE
@@ -246,8 +259,11 @@ const LoadButtons = () => {
 				viewerRef={viewerRef}
 				setSelectedLevel={setSelectedLevel}
 			/>
-			<Box sx={{ fontFamily: "monospace",px: 1 }}>
+			<Box sx={{ px: 1 }}>
 				<Button
+					sx={{
+						fontFamily: "monospace",
+					}}
 					variant="contained"
 					key={"showPlane"}
 					onClick={() => toggleClippingPlanes()}
