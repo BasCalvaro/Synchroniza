@@ -72,6 +72,7 @@ const OpenFloor = ({ setSelectedLevel, viewerRef, model }) => {
 		<Box sx={{ display: "flex" }}>
 			<Box sx={{ px: 1 }}>
 				<Button
+					sx={{ fontFamily: "monospace" }}
 					onClick={handleFloorPlansClick}
 					variant="contained"
 					aria-describedby={popperOpen ? "floor-plans-popper" : undefined}
@@ -80,7 +81,11 @@ const OpenFloor = ({ setSelectedLevel, viewerRef, model }) => {
 				</Button>
 			</Box>
 
-			<Button onClick={handleExitFloorPlan} variant="contained">
+			<Button
+				sx={{ fontFamily: "monospace" }}
+				onClick={handleExitFloorPlan}
+				variant="contained"
+			>
 				Exit Floor Plan
 			</Button>
 			<Popper open={popperOpen}>
@@ -93,7 +98,7 @@ const OpenFloor = ({ setSelectedLevel, viewerRef, model }) => {
 						bgcolor: "white",
 						boxShadow: 6,
 						py: 3,
-						px: 5,
+						px: 3,
 					}}
 				>
 					<Box
@@ -104,7 +109,11 @@ const OpenFloor = ({ setSelectedLevel, viewerRef, model }) => {
 							pb: 2,
 						}}
 					>
-						<Typography variant="h6" component="h2">
+						<Typography
+							sx={{ fontFamily: "monospace" }}
+							variant="h6"
+							component="h2"
+						>
 							Floor Plans Filters
 						</Typography>
 					</Box>
@@ -112,7 +121,10 @@ const OpenFloor = ({ setSelectedLevel, viewerRef, model }) => {
 						{allPlans ? (
 							allPlans.map((plan) => (
 								<div key={plan.expressID}>
-									<Button onClick={() => handleLevelSelect(plan.expressID)}>
+									<Button
+										sx={{ fontFamily: "monospace" }}
+										onClick={() => handleLevelSelect(plan.expressID)}
+									>
 										{plan.name}
 									</Button>
 								</div>

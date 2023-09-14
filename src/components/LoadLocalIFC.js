@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 
-import { Container, Box } from "@mui/material";
+import { IconButton, Box } from "@mui/material";
+import SquareFootIcon from "@mui/icons-material/SquareFoot";
 
 import { useDataContext } from "./context";
 import NavBar from "./NavBar";
@@ -8,12 +9,26 @@ import LateralBar from "./LateralBar";
 
 export default function LoadLocalIFC({ viewerRef }) {
 	//---------------------------------------------------------------------------------------------
-	//HANDLERS - OBTENER DIMENSIONES
+	//HANDLERS
 	//---------------------------------------------------------------------------------------------
 
 	const { treeData, sectionData, setSectionData } = useDataContext();
 	const fileInputRef = useRef(null);
 	const [selectedFile, setSelectedFile] = useState(null);
+
+	const [isDimensionActive, setDimensionActive] = useState(false);
+
+	const handleDimensionClick = () => {
+		const viewer = viewerRef.current;
+		if (!isDimensionActive) {
+			viewer.dimensions.active = true;
+			viewer.dimensions.previewActive = true;
+		} else {
+			viewer.dimensions.active = false;
+			viewer.dimensions.previewActive = false;
+		}
+		setDimensionActive(!isDimensionActive);
+	};
 
 	//-----------------------------------------------------------------------------------------------
 	//JSX
@@ -33,9 +48,23 @@ export default function LoadLocalIFC({ viewerRef }) {
 					setSectionData={setSectionData}
 					viewerRef={viewerRef}
 				/>
-				<Box>
+				<Box
+					sx={{
+						display: "flex",
+						flexGrow: 1,
+						position: "relative",
+						overflow: "hidden", // Para evitar desbordamientos
+					}}
+				>
 					<Box>
-						<div id="viewer-container"></div>
+						<div
+							id="viewer-container"
+							style={{
+								width: "100%",
+								height: "100%",
+								position: "absolute",
+							}}
+						></div>
 					</Box>
 
 					<input
@@ -46,6 +75,18 @@ export default function LoadLocalIFC({ viewerRef }) {
 					/>
 				</Box>
 			</Box>
+			<IconButton
+				size="large"
+				onClick={handleDimensionClick}
+				sx={{
+					position: "fixed",
+					bottom: "5%",
+					right: "5%",
+					backgroundColor: "Dodgerblue",
+				}}
+			>
+				<SquareFootIcon fontSize="large" sx={{ color: "white" }} />
+			</IconButton>
 		</Box>
 	);
 }

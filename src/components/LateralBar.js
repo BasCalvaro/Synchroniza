@@ -6,38 +6,35 @@ import AccountTreeIcon from "@mui/icons-material/AccountTree";
 
 import IfcTreeItem from "./IfctreeItem";
 
-import LoadElements from "./LoadElements";
-
-export default function MiniDrawer({
-	treeData,
-	sectionData,
-	setSectionData,
-	viewerRef,
-}) {
+export default function MiniDrawer({ treeData, sectionData }) {
 	//---------------------------------------------------------------------------------------------
 	//JSX
 	//---------------------------------------------------------------------------------------------
 	return (
-		<Box sx={{
-			borderRight: 1,
-			borderColor: "grey.300",
-		}}>
+		<Box
+			sx={{
+				borderRight: 1,
+				borderColor: "grey.300",
+			}}
+		>
 			<Box
 				sx={{
 					mt: 1,
 					display: "flex",
 					flexDirection: "column",
-					height: "100vh",
+					height: "94vh",
+					width: "28vh",
 				}}
 			>
 				<Divider />
 				<Box
 					sx={{
 						flexGrow: 1,
-						height: "50%"
+						height: "50%",
+						overflowY: "auto",
 					}}
 				>
-					<Box sx={{ my:1, display: "flex", alignItems: "center" }}>
+					<Box sx={{ m: 1, display: "flex", alignItems: "center" }}>
 						<AccountTreeIcon />
 						<Typography
 							variant="h7"
@@ -56,15 +53,15 @@ export default function MiniDrawer({
 					</Box>
 
 					<Divider />
-					<div
-						style={{
-							width: "22vh",
-						}}
-					>
+					<div>
 						{treeData && (
 							<IfcTreeItem
 								node={treeData}
-								sx={{ fontSize: 15, marginRight: 10 }}
+								sx={{
+									fontFamily: "monospace",
+									fontSize: 15,
+									marginRight: 10,
+								}}
 							/>
 						)}
 					</div>
@@ -74,10 +71,11 @@ export default function MiniDrawer({
 				<Box
 					sx={{
 						flexGrow: 1,
-						height: "50%"
+						height: "50%",
+						overflowY: "auto",
 					}}
 				>
-					<Box sx={{ my:1, display: "flex", alignItems: "center" }}>
+					<Box sx={{ m: 1, display: "flex", alignItems: "center" }}>
 						<ManageSearchIcon />
 						<Typography
 							variant="h7"
@@ -96,27 +94,173 @@ export default function MiniDrawer({
 					</Box>
 					<Divider />
 					{sectionData && (
-						<Box sx={{m:1}}>
+						<Box sx={{ m: 1 }}>
+							{/* // Section 1 ------------------------------------------------------------------ */}
 							<Typography
-								sx={{ fontSize: 14, color: "blue", fontStyle: "italic" }}
+								sx={{
+									my: 0.5,
+									fontFamily: "monospace",
+									fontSize: 14,
+									color: "blue",
+									fontStyle: "italic",
+								}}
 							>
 								Name: {sectionData.name}
 							</Typography>
 							<Divider />
-							<Typography sx={{ fontSize: 14 }}>
+							<Typography
+								sx={{
+									fontFamily: "monospace",
+									my: 0.5,
+									ml: 2,
+									fontSize: 14,
+								}}
+							>
 								IFC Category: {sectionData.IfcCategory}
 							</Typography>
 							<Divider />
-							<Typography sx={{ fontSize: 14 }}>
+							<Typography
+								sx={{
+									fontFamily: "monospace",
+									my: 0.5,
+									ml: 2,
+									fontSize: 14,
+								}}
+							>
 								ExpressId: {sectionData.ExpressID}
 							</Typography>
 							<Divider />
-							<Typography sx={{ fontSize: 14 }}>
+							<Typography
+								sx={{
+									fontFamily: "monospace",
+									my: 0.5,
+									ml: 2,
+									fontSize: 14,
+								}}
+							>
 								ObjectType: {sectionData.ObjectType}
 							</Typography>
 							<Divider />
-							<Typography sx={{ fontSize: 14 }}>
+							<Typography
+								sx={{
+									fontFamily: "monospace",
+									my: 0.5,
+									ml: 2,
+									fontSize: 14,
+								}}
+							>
 								Tag: {sectionData.Tag}
+							</Typography>
+
+							{/* // Section 2 ------------------------------------------------------------------ */}
+							<Typography
+								sx={{
+									fontFamily: "monospace",
+									my: 0.5,
+									fontSize: 14,
+									color: "blue",
+									fontStyle: "italic",
+								}}
+							>
+								Base Quantities
+							</Typography>
+
+							<Typography
+								sx={{
+									fontFamily: "monospace",
+									my: 0.5,
+									ml: 2,
+									fontSize: 14,
+								}}
+							>
+								Height: {sectionData.Height?.toFixed(2) ?? "-"}
+							</Typography>
+							<Divider />
+							<Typography
+								sx={{
+									fontFamily: "monospace",
+									my: 0.5,
+									ml: 2,
+									fontSize: 14,
+								}}
+							>
+								Lenght: {sectionData.Length?.toFixed(2) ?? "-"}
+							</Typography>
+							<Typography
+								sx={{
+									fontFamily: "monospace",
+									my: 0.5,
+									ml: 2,
+									fontSize: 14,
+								}}
+							>
+								Width: {sectionData.Width?.toFixed(2) ?? "-"}
+							</Typography>
+							<Divider />
+							<Typography
+								sx={{
+									fontFamily: "monospace",
+									my: 0.5,
+									ml: 2,
+									fontSize: 14,
+								}}
+							>
+								Volumen: {sectionData.Volumen?.toFixed(2) ?? "-"}
+							</Typography>
+							<Divider />
+							<Typography
+								sx={{
+									fontFamily: "monospace",
+									my: 0.5,
+									ml: 2,
+									fontSize: 14,
+								}}
+							>
+								Area: {sectionData.Area?.toFixed(2) ?? "-"}
+							</Typography>
+
+							{/* // Section 3 ------------------------------------------------------------------ */}
+							<Typography
+								sx={{
+									fontFamily: "monospace",
+									my: 0.5,
+									fontSize: 14,
+									color: "blue",
+									fontStyle: "italic",
+								}}
+							>
+								Property Set
+							</Typography>
+							<Typography
+								sx={{
+									fontFamily: "monospace",
+									my: 0.5,
+									ml: 2,
+									fontSize: 14,
+								}}
+							>
+								GlobalID: {sectionData.GlobalID}
+							</Typography>
+							<Divider />
+							<Typography
+								sx={{
+									fontFamily: "monospace",
+									my: 0.5,
+									ml: 2,
+									fontSize: 14,
+								}}
+							>
+								IfcLabel: {sectionData.IfcLabel}
+							</Typography>
+							<Typography
+								sx={{
+									fontFamily: "monospace",
+									my: 0.5,
+									ml: 2,
+									fontSize: 14,
+								}}
+							>
+								LoadBearing: {sectionData.LoadBearing}
 							</Typography>
 						</Box>
 					)}
