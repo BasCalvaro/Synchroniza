@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 
-import { IconButton, Box } from "@mui/material";
+import { IconButton, Box, Button } from "@mui/material";
 import SquareFootIcon from "@mui/icons-material/SquareFoot";
 
 import { useDataContext } from "./context";
@@ -96,6 +96,8 @@ export default function LoadLocalIFC() {
 			>
 				<SquareFootIcon fontSize="large" sx={{ color: "white" }} />
 			</IconButton>
+		
 		</Box>
+
 	);
 }

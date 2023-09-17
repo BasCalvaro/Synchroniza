@@ -283,6 +283,8 @@ const LoadButtons = () => {
 				onChange={handleFileChange}
 				accept=".ifc, .ifcXML, .ifcZIP,*.*"
 			/>
+
+			
 		</Box>
 	);
 };

@@ -3,10 +3,17 @@ import { Button, TextField, Grid, Container, Typography, Box } from '@mui/materi
 import { useTheme } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
+import IconButton from '@mui/material/IconButton';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+
 
 function FormRegister() {
     const navigate = useNavigate();
     const theme = useTheme();
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+
     const StyledContainer = styled(Container)(({ theme }) => ({
         backgroundColor: theme.palette.white,
       }));
@@ -29,9 +36,12 @@ function FormRegister() {
     event.preventDefault();
     console.log('Datos enviados:', formData);
     // Aquí puedes procesar los datos, como enviarlos a una API, etc.
+    setOpenSnackbar(true);
   };
 
   return (
+
+    
     <StyledContainer component="main" maxWidth="xs" sx={{mt:5}}>
     {/* <Container  sx={{bgcolor: "primary.main" }} component="main" maxWidth="xs"> */}
       <Typography component="h1" variant="h5">
@@ -90,15 +100,40 @@ function FormRegister() {
     {/* </Container> */}
 
     <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-        <Button 
-            sx={{mt:5}}
+        
+        
+        
+        
+        <Button LogoutRoundedIcon
+            sx={{
+            mt:5,
+            borderRadius:"50%", 
+            width: "150px",
+            height: "150px",
+            fontSize: "16px"       
+        
+        
+        }}
             variant="contained"
+            color="success"
             onClick={() => navigate("/visualizador")}>
-                Ir al visualizador
+                Ir al visualizador 3D
         </Button>
     </Box>
+    <Snackbar
+    open={openSnackbar}
+    autoHideDuration={6000}
+    onClose={() => setOpenSnackbar(false)}
+    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+>
+    <Alert onClose={() => setOpenSnackbar(false)} severity="success" variant="filled">
+        ¡Recibimos tu Solicitud con exito!
+    </Alert>
+</Snackbar>
+
     </StyledContainer>
   );
 }
 
 export default FormRegister;
+ 

@@ -11,8 +11,8 @@ function LandingPage() {
     <Box
       sx={{
         position: 'fixed',  // Hace que el video se fije en el fondo
-        mt: 3,
-        ml: 0,
+        mt: 6,
+        ml: 5,
         width: '86%',  // Establece el ancho al 100% del viewport
         height: '100%',  // Establece el alto al 100% del viewport
         overflow: 'hidden',  // Esconde cualquier contenido desbordado
@@ -37,8 +37,6 @@ function LandingPage() {
 
     </Box>
     
-
-
 
   );
 }
