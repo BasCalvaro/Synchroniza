@@ -34,7 +34,6 @@ const IfcTreeItem = ({ node, level }) => {
 						primaryTypographyProps={{
 							fontSize: 12,
 							lineHeight: "10px",
-							color: "black",
 						}}
 					/>
 					<Divider />

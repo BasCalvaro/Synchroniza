@@ -109,7 +109,7 @@ const OpenFloor = ({ setSelectedLevel, viewerRef, model }) => {
 						}}
 					>
 						<Typography
-							sx={{ fontFamily: "monospace" }}
+							sx={{ fontFamily: "monospace", color: "Black" }}
 							variant="h6"
 							component="h2"
 						>
@@ -121,7 +121,7 @@ const OpenFloor = ({ setSelectedLevel, viewerRef, model }) => {
 							allPlans.map((plan, index) => (
 								<div key={index}>
 									<Button
-										sx={{ fontFamily: "monospace" }}
+										sx={{ fontFamily: "monospace", color: "DeepSkyBlue" }}
 										onClick={() => handleLevelSelect(plan.expressID)}
 									>
 										{plan.name}

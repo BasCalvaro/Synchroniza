@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 
-import { IconButton, Box, Button } from "@mui/material";
+import { IconButton, Box } from "@mui/material";
 import SquareFootIcon from "@mui/icons-material/SquareFoot";
 
 import { useDataContext } from "./context";
@@ -13,17 +13,14 @@ export default function LoadLocalIFC() {
 	//---------------------------------------------------------------------------------------------
 
 	const fileInputRef = useRef(null);
-	const [selectedFile, setSelectedFile] = useState(null);
+	const [setSelectedFile] = useState(null);
 	const {
 		viewerRef,
 		treeData,
-		setTreeData,
 		sectionData,
 		setSectionData,
 		isDimensionActive,
 		setDimensionActive,
-		isMeasureActive,
-		setMeasureActive,
 	} = useDataContext();
 
 	const handleDimensionClick = () => {
@@ -90,7 +87,6 @@ export default function LoadLocalIFC() {
 					position: "fixed",
 					bottom: "5%",
 					right: "4%",
-					backgroundColor: "Dodgerblue",
 					backgroundColor: isDimensionActive ? "green" : "Dodgerblue",
 				}}
 			>
