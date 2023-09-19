@@ -10,18 +10,13 @@ const LoadButtons = () => {
 	const {
 		viewerRef,
 		fileInputRef,
-		selectedLevel,
 		setSelectedLevel,
-		selectedFileName,
 		setSelectedFileName,
 		model,
 		setModel,
-		treeData,
 		setTreeData,
-		sectionData,
 		setSectionData,
 		isDimensionActive,
-		setDimensionActive,
 	} = useDataContext();
 
 	useEffect(() => {
@@ -29,7 +24,7 @@ const LoadButtons = () => {
 
 		const viewer = new IfcViewerAPI({
 			container: canvasContainer,
-			backgroundColor: new Color(0xffffff),
+			// backgroundColor: new Color(0xffffff),
 		});
 
 		viewer.axes.setAxes();
@@ -143,9 +138,9 @@ const LoadButtons = () => {
 
 	const toggleClippingPlanes = () => {
 		const viewer = viewerRef.current;
-		console.log("que muestra viewer", viewer);
-		const createPlane = viewer.clipper.createPlane();
-		console.log("Creacion de Plano", createPlane);
+		// console.log("que muestra viewer", viewer);
+		// const createPlane = viewer.clipper.createPlane();
+		// console.log("Creacion de Plano", createPlane);
 		if (viewer) {
 			viewer.toggleClippingPlanes();
 			if (viewer.clipper.active) {
@@ -263,8 +258,8 @@ const LoadButtons = () => {
 				<Button
 					sx={{
 						fontFamily: "monospace",
-						backgroundColor: isClippingPaneSelected ? "green" : "inherit",
-						color: isClippingPaneSelected ? "white" : "inherit",
+						backgroundColor: isClippingPaneSelected ? "green" : "",
+						color: isClippingPaneSelected ? "white" : "",
 					}}
 					variant="contained"
 					key={"showPlane"}
@@ -283,8 +278,6 @@ const LoadButtons = () => {
 				onChange={handleFileChange}
 				accept=".ifc, .ifcXML, .ifcZIP,*.*"
 			/>
-
-			
 		</Box>
 	);
 };

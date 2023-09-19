@@ -5,7 +5,16 @@ import LoadLocalIFC from "./components/LoadLocalIFC";
 import { DataProvider } from "./components/context";
 import LandingPage from "./components/LandingPage";
 import FormRegister from "./components/FormRegister";
-import { useTheme, useMediaQuery } from '@mui/material';
+import { useTheme, useMediaQuery } from "@mui/material";
+
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+
+const darkTheme = createTheme({
+	palette: {
+		mode: "dark",
+	},
+});
 
 function App() {
     const viewerRef = useRef(null);

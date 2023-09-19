@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
-import { Button, TextField, Grid, Container, Typography, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
 import { Form, useNavigate } from "react-router-dom";
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+
+import {
+	Button,
+	TextField,
+	Grid,
+	Container,
+	Typography,
+	Box,
+} from "@mui/material";
 
 
 
@@ -39,14 +47,21 @@ function FormRegister() {
         };
         
 
-        const handleSubmit = (e) => {
-            e.preventDefault();
-            console.log("submit",e);
-            // Aquí puedes procesar los datos, como enviarlos a una API, etc.
-            setOpenSnackbar(true);
-        };
+        // const handleSubmit = (e) => {
+        //     e.preventDefault();
+        //     console.log("submit",e);
+        //     // Aquí puedes procesar los datos, como enviarlos a una API, etc.
+        //     setOpenSnackbar(true);
+        // };
 
-  return (
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		console.log("Datos enviados:", formData);
+		// Aquí puedes procesar los datos, como enviarlos a una API, etc.
+		setOpenSnackbar(true);
+	};
+
+	return(
 
     <Box>
     <StyledContainer component="main" maxWidth="xs" sx={{mt:5}}>
@@ -128,4 +143,3 @@ function FormRegister() {
 }
 
 export default FormRegister;
- 
