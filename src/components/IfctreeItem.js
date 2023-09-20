@@ -24,10 +24,7 @@ const IfcTreeItem = ({ node, level }) => {
 
 	return (
 		<div style={{}}>
-			<List
-				component="nav"
-				aria-labelledby="nested-list-subheader"
-			>
+			<List component="nav" aria-labelledby="nested-list-subheader">
 				<ListItemButton onClick={toggleOpen}>
 					<ListItemText
 						primary={nodeInfo.ExpressID + "   -     " + nodeInfo.name}

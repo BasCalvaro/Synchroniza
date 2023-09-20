@@ -236,7 +236,7 @@ const LoadButtons = () => {
 	//JSX
 	//-----------------------------------------------------------------------------------------------
 	return (
-		<Box sx={{ display: "flex" }}>
+		<Box sx={{ display: "flex", position: "fixed", right: "3%" }}>
 			<Box>
 				<Button
 					sx={{
