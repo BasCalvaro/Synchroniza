@@ -92,8 +92,6 @@ export default function LoadLocalIFC() {
 			>
 				<SquareFootIcon fontSize="large" sx={{ color: "white" }} />
 			</IconButton>
-		
 		</Box>
-
 	);
 }

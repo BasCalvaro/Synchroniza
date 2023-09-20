@@ -23,7 +23,7 @@ function LandingPage() {
 				muted
 				style={{
 					objectFit: "cover",
-					width: `${85 * scale}%`, // Escala el ancho
+					width: `${82 * scale}%`, // Escala el ancho
 					height: `${90 * scale}%`, // Escala el alto
 					transform: `translate(-${(scale - 1) * 50}%, -${(scale - 1) * 50}%)`, // Centra el video
 				}}
